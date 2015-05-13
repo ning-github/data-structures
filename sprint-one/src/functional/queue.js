@@ -4,25 +4,29 @@ var Queue = function(){
   // Use an object with numeric keys to store values
   var storage = {};
   var size = 0;
+  var reindex = function(object){
+    var i=0;
+    for(var key in object){
+      object[i]=object[key];
+      i++;
+    }
+  };
 
   // Implement the methods below
 
   someInstance.enqueue = function(value){
-    storage[size] = value;
+    storage[size]=value;
     size++;
   };
 
   someInstance.dequeue = function(){
-    if(size>0){
-      var result = storage[0];
+    if (size>0){
+      var element = storage[0];
       delete storage[0];
-
-      for(var key in storage){
-        var temp = storage[key];
-        storage[key-1] = temp;
-      }
       size--;
-      return result;
+
+      reindex(storage);
+      return element;
     }
   };
 
@@ -32,4 +36,3 @@ var Queue = function(){
 
   return someInstance;
 };
-
