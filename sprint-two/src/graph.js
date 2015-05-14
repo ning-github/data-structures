@@ -3,8 +3,8 @@ var Graph = function(){
 };
 
 Graph.prototype.addNode = function(node){
-  this.allNodes[node] = {};
-  this.allNodes[node].edges = [];
+  this.allNodes[node] = {}; //property of allNodes "nodeName":{}
+  this.allNodes[node].edges = []; //"nodeName":{"edges":[]}
 };
 
 Graph.prototype.contains = function(node){
