@@ -24,4 +24,3 @@ Stack.prototype.size = function() {
   return this.storageSize;
 };
 
-var newStack = new Stack();
