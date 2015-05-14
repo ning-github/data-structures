@@ -31,6 +31,7 @@ var LinkedList = function(){
         drill(node.next);
       }
     }
+    drill(list.head);
     return inside;
   };
 
