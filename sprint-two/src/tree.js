@@ -8,8 +8,6 @@ var Tree = function(value){
   return newTree;
 };
 
-
-
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
@@ -41,4 +39,8 @@ var extend = function(obj1, obj2){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *
+ * addChild    O(n)   linear time operation (needs to traverse to the end of the tree)
+ * contains    O(n)   linear time operation (needs to traverse through tree to check if inside)
+ *
  */
