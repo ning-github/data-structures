@@ -44,6 +44,7 @@ Graph.prototype.forEachNode = function(cb){
   }
 };
 
+//helper function for targeted removal of an array's element using .splice
 var removeFromArray = function(array, value){
   var index = array.indexOf(value);
   if (index!==-1){
@@ -53,6 +54,14 @@ var removeFromArray = function(array, value){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *
+ * addNode      O(1)  constant time operation (its execution is unaffected by input size)
+ * contains     O(n)  linear time operation (traverses through each, higher for higher input size)
+ * removeNode   O(1)  constant time operation (removal is targeted and unaffected by how many nodes there are)
+ * addEdge      O(1)  constant time operation (removal is targeted and unaffected by how many nodes there are)
+ * removeEdge   O(1)  constant time operation (removal is targeted and unaffected by how many nodes there are)
+ * forEachNode  O(n)  linear time operation (traverse through the data structure)
+ *
  */
 
 
