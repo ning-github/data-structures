@@ -36,3 +36,11 @@ var Queue = function(){
 
   return someInstance;
 };
+
+/* alternatively to reindex, could also just use:
+
+for(var key in storage){
+  storage[key-1]=storage[key];
+}
+
+*/
