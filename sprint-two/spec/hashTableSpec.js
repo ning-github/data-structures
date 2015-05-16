@@ -26,7 +26,8 @@ describe('hashTable', function() {
   it('should not contain values that were removed', function() {
     hashTable.insert('Steven', 'Tyler');
     hashTable.remove('Steven');
-    expect(hashTable.retrieve('Steven')).to.equal(null);
+    // changing the expectation to look for undefined (a function with no return statement returns undefined)
+    expect(hashTable.retrieve('Steven')).to.equal(undefined);
   });
 
   it('should handle hash function collisions', function(){

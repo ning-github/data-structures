@@ -12,7 +12,7 @@
 //   limitedArray.get(3); // returns 'hi'
 
 var LimitedArray = function(limit){
-  var storage = [];
+  var storage = []; //encapsulated. notice that this is not a property of limitedArray instance that this constructor creates
 
   var limitedArray = {};
   limitedArray.get = function(index){
@@ -47,7 +47,7 @@ var getIndexBelowMaxForKey = function(str, max){
     hash = hash & hash; // Convert to 32bit integer
     hash = Math.abs(hash);
   }
-  return hash % max;
+  return hash % max;  //this will set the hash index such that it's index number does not exceed the predfined max size of the array
 };
 
 /*
