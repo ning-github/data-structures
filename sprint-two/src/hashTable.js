@@ -1,6 +1,7 @@
 var HashTable = function(){
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._size = 0;
 };
 
 HashTable.prototype.insert = function(k, v){
@@ -10,20 +11,39 @@ HashTable.prototype.insert = function(k, v){
   var cell = this._storage.get(i);
   //check if this cell exists already (this will account for collisions)
   if (cell){
+    ///NOTE!!!!! this solution does not yet check for a duplicate k (not that k is unique, even if the i hash it produces is not);
+    for (var i = 0; i < cell.length; i++) {
+      var tuple = cell[i];
+      if (tuple[0]===k){
+        tuple[1]=v;
+      }
+    };
     cell.push([k,v]); //push into that cell
-  } else {  //if this is the first tuple for that hash
-    this._storage.set(i, [ [k,v] ]);  //create the cell, which contains the tuple
+  } 
+
+  //if this is the first tuple for that hash
+  this._storage.set(i, [ [k,v] ]);  //create the cell, which contains the tuple
+
+  // resizing
+  this._size++;
+  if (this._size/this._limit >= 0.75){
+    this.resize(this._limit*2);
   }
 };
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var cell = this._storage.get(i);
+  if (!cell){   //this check is very important because cell could be undefined
+    return null;
+  }
+  // if cell IS undefined, this will cause an error (can't .length undefined)
   for (var j = 0; j < cell.length; j++) {
     if (cell[j][0] === k){
       return cell[j][1];
     }
   }
+  return null;
 };
 
 HashTable.prototype.remove = function(k){
@@ -32,9 +52,34 @@ HashTable.prototype.remove = function(k){
   for (var j = 0; j < cell.length; j++) {
     if (cell[j][0] === k){
       cell.splice(j,1);
+      //resizing
+      this._size--;  
+      if (this._size/this._limit <= 0.25){
+        this.resize(this._limit/2);
+      }
+      return;  //should return after splicing because splicing affects iteration length
     }
   }
+  return null;
 };
+
+// resize function for dynamic resizing
+HashTable.prototype.resize = function(newSize){
+  //need to reshuffle the table
+  var oldStorage =  this._storage;
+  this._storage = LimitedArray(newSize);
+  this._limit = newSize;
+  this._size = 0;
+
+  oldStorage.each(function(eachCell, hashInd, storage){
+    if (!eachCell){ return; };
+    for (var i = 0; i < eachCell.length; i++) {
+      var tuple = eachCell[i];
+      this.insert(tuple[0],tuple[1]);
+    };
+  }.bind(this));  //since anon callback is free func invoc, we use bind to give it the hashTable instance's context
+};
+
 
 
 
@@ -45,7 +90,8 @@ HashTable.prototype.remove = function(k){
     - despite the linear operations of the remove and retrieve
       - this is because of it being a CONSTANT cost as a result of 
           dynamic TABLE resizing (more cells, so fewer tuples in each)
-
+  
+    RESIZE however, is a linear time operation O(n)
  */
 
 

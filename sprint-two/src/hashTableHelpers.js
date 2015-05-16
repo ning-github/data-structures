@@ -30,6 +30,8 @@ var LimitedArray = function(limit){
   };
 
   var checkLimit = function(index){
+    console.log("index: ",index);
+    console.log("limit: ", limit);  //problem is that limit is not changing
     if(typeof index !== 'number'){ throw new Error('setter requires a numeric index for its first argument'); }
     if(limit <= index){ throw new Error('Error trying to access an over-the-limit index'); }
   };
