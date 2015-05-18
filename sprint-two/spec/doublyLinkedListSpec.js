@@ -2,7 +2,7 @@ describe('doublyLinkedList', function() {
   var linkedList;
 
   beforeEach(function() {
-    var doublyLinkedList = DoublyLinkedList();
+    var doublyLinkedList = new DoublyLinkedList();
   });
 
 

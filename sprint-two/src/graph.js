@@ -3,6 +3,20 @@ var Graph = function(){
 };
 
 Graph.prototype.addNode = function(node){
+  // better way 
+  /*
+    if (node) {
+    this._nodes[node] = this._nodes[node] || { edges: [] };
+  }
+
+  what this says is, if the node is not undefined
+    then, if the node already exists, overwrite it
+      OTHERwise, you're creating a object whose key is the node's name
+        and whose values is an object that holds the edgdes in an array
+
+  */
+
+
   this.allNodes[node] = {}; //property of allNodes "nodeName":{}
   this.allNodes[node].edges = []; //"nodeName":{"edges":[]}
 };
